@@ -490,7 +490,7 @@ config.command('init').action(async () => {
 		url: 'https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01',
 		keypair: `${os.homedir()}/.config/solana/id.json`,
 	};
-
+// dummy
 	const dir = getConfigFileDir();
 	if (!fs.existsSync(getConfigFileDir())) {
 		fs.mkdirSync(dir, { recursive: true });
