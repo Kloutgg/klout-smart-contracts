@@ -1,14 +1,14 @@
 import { Connection, PublicKey, Keypair } from '@solana/web3.js';
-import { BN, TestClient, BASE_PRECISION, Wallet, BulkAccountLoader } from '@drift-labs/sdk';
+import { BN, TestClient, Wallet, BulkAccountLoader } from '@drift-labs/sdk';
 import * as fs from 'fs';
 
 // User's specific configuration
 const DEVNET_RPC = "https://api.devnet.solana.com";
 const WALLET_PATH = "../bilc.json";
-const USDC_MINT = new PublicKey("86wU3KdufXJAiQAipYnx6tZH76np9jw7FYFgVUsxekAC");
+const _USDC_MINT = new PublicKey("86wU3KdufXJAiQAipYnx6tZH76np9jw7FYFgVUsxekAC");
 const DRIFT_PROGRAM_ID = new PublicKey("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu");
-const PYTH_PROGRAM_ID = new PublicKey("EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr");
-const TOKEN_FAUCET_PROGRAM_ID = new PublicKey("5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE");
+const _PYTH_PROGRAM_ID = new PublicKey("EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr");
+const _TOKEN_FAUCET_PROGRAM_ID = new PublicKey("5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE");
 
 // CRITICAL FIX: Equal reserves
 const mantissaSqrtScale = new BN(100000);
@@ -114,7 +114,7 @@ async function main() {
     let existingMarkets = 0;
     for (const market of MARKETS) {
       try {
-        const perpMarket = driftClient.getPerpMarketAccount(market.index);
+        const _perpMarket = driftClient.getPerpMarketAccount(market.index);
         console.log(`  ✅ ${market.symbol} (Index ${market.index}): Already exists`);
         existingMarkets++;
       } catch (error) {
@@ -147,7 +147,7 @@ async function main() {
       try {
         // Check if already exists
         try {
-          const existingMarket = driftClient.getPerpMarketAccount(market.index);
+          const _existingMarket = driftClient.getPerpMarketAccount(market.index);
           console.log(`  ✅ ${market.symbol} market already exists - SUCCESS!`);
           successCount++;
           continue;

@@ -1,5 +1,5 @@
 import { Connection, PublicKey, Keypair } from '@solana/web3.js';
-import { BN, TestClient, BASE_PRECISION, Wallet, BulkAccountLoader } from '@drift-labs/sdk';
+import { BN, TestClient, Wallet, BulkAccountLoader } from '@drift-labs/sdk';
 import * as fs from 'fs';
 
 // Configuration
@@ -125,7 +125,7 @@ async function main() {
       try {
         // Check if market already exists
         try {
-          const existingMarket = driftClient.getPerpMarketAccount(market.index);
+          const _existingMarket = driftClient.getPerpMarketAccount(market.index);
           console.log(`  ✅ ${market.symbol} market already exists - SUCCESS!`);
           successCount++;
           continue;

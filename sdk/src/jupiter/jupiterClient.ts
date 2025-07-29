@@ -335,14 +335,29 @@ export class JupiterClient {
 				}),
 			})
 		).json();
-		if (!('swapTransaction' in resp)) {
+
+		// Type guard to ensure resp is an object
+		if (!resp || typeof resp !== 'object') {
+			throw new Error('Invalid response from Jupiter API');
+		}
+
+		const respObj = resp as Record<string, unknown>;
+		if (!('swapTransaction' in respObj)) {
+			const error =
+				'error' in respObj ? String(respObj.error) : 'Unknown error';
+			const message = 'message' in respObj ? String(respObj.message) : '';
 			throw new Error(
-				`swapTransaction not found, error from Jupiter: ${resp.error} ${
-					', ' + (resp.message ?? '')
+				`swapTransaction not found, error from Jupiter: ${error}${
+					message ? ', ' + message : ''
 				}`
 			);
 		}
-		const { swapTransaction } = resp;
+		const swapTransaction = respObj.swapTransaction;
+
+		// Type check for swapTransaction
+		if (typeof swapTransaction !== 'string') {
+			throw new Error('Invalid swapTransaction format from Jupiter API');
+		}
 
 		try {
 			const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');

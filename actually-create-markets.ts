@@ -1,5 +1,5 @@
 import { Connection, PublicKey, Keypair } from '@solana/web3.js';
-import { BN, TestClient, BASE_PRECISION, Wallet, BulkAccountLoader } from '@drift-labs/sdk';
+import { BN, TestClient, Wallet, BulkAccountLoader } from '@drift-labs/sdk';
 import * as fs from 'fs';
 
 // Configuration
