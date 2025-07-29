@@ -21,7 +21,7 @@ async function main() {
   console.log(`Using wallet: ${keypair.publicKey.toString()}`);
   
   // Token faucet program ID from Anchor.toml
-  const tokenFaucetProgramId = new PublicKey('V4v1mQiAdLz4qwckEb45WqHYceYizoib39cDBHSWfaB');
+  const tokenFaucetProgramId = new PublicKey('5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE');
   
   // USDC mint address from Drift config
   const usdcMint = new PublicKey(sdkConfig.USDC_MINT_ADDRESS);

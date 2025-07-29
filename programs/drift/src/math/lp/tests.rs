@@ -266,7 +266,7 @@ mod calculate_lp_shares_to_burn_for_risk_reduction {
         let user_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH").unwrap();
+        let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
         let mut lamports = 0;
         let user_account_info = create_account_info(&key, true, &mut lamports, user_bytes, &owner);
 
@@ -279,7 +279,7 @@ mod calculate_lp_shares_to_burn_for_risk_reduction {
         let perp_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH").unwrap();
+        let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
         let mut lamports = 0;
         let perp_market_account_info =
             create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -404,7 +404,7 @@ mod calculate_lp_shares_to_burn_for_risk_reduction {
         let user_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH").unwrap();
+        let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
         let mut lamports = 0;
         let user_account_info = create_account_info(&key, true, &mut lamports, user_bytes, &owner);
 
@@ -418,7 +418,7 @@ mod calculate_lp_shares_to_burn_for_risk_reduction {
         let perp_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH").unwrap();
+        let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
         let mut lamports = 0;
         let perp_market_account_info =
             create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);

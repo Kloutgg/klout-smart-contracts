@@ -28,7 +28,7 @@ async function main() {
   console.log(`Using wallet: ${keypair.publicKey.toString()}`);
   
   // Known values from previous script
-  const tokenFaucetProgramId = new PublicKey('V4v1mQiAdLz4qwckEb45WqHYceYizoib39cDBHSWfaB');
+  const tokenFaucetProgramId = new PublicKey('5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE');
   const usdcMint = new PublicKey(sdkConfig.USDC_MINT_ADDRESS);
   const faucetConfig = new PublicKey('A5TtJFy3PgCSg9MdBHLCHtewa7Sx613heaJ5atjNZCtJ');
   const mintAuthority = new PublicKey('7GWXZ5esgVjUek9zDapKN5QAXPFLT2E7MafLb1p7zF6U');

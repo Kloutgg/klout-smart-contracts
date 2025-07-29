@@ -1,0 +1,24 @@
+{
+  "name": "drift-setup-fixed",
+  "version": "1.0.0",
+  "description": "Fixed Drift market setup script that resolves InvalidInitialPeg errors",
+  "main": "setup-drift-fixed.js",
+  "scripts": {
+    "setup": "node setup-drift-fixed.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "@drift-labs/sdk": "^2.90.0",
+    "@solana/web3.js": "^1.87.6",
+    "@solana/spl-token": "^0.3.11"
+  },
+  "keywords": [
+    "drift",
+    "solana",
+    "defi",
+    "perpetuals",
+    "setup"
+  ],
+  "author": "Drift Protocol",
+  "license": "MIT"
+} 

@@ -1,6 +1,9 @@
 [provider]
-cluster = "localnet"
-wallet = "~/.config/solana/id.json"
+cluster = "devnet"
+wallet = "../bilc.json"
+
+[provider.devnet]
+url = "https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01"
 
 [workspace]
 exclude = ["programs/openbook_v2"]
@@ -14,10 +17,10 @@ watch_ts = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c bas
 watch_build = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c anchor build'
 watch_cargo = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c cargo test -- --show-output'
 
-[programs.localnet]
-drift = "dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH"
-pyth = "FsJ3A3u2vn5cTVofAjvy6y5kwABJAqYWpe4975bi2epH"
-token_faucet = "V4v1mQiAdLz4qwckEb45WqHYceYizoib39cDBHSWfaB"
+[programs.devnet]
+drift = "EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu"
+pyth = "EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr"
+token_faucet = "5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE"
 
 [[test.validator.account]]
 address = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"

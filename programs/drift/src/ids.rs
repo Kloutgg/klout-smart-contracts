@@ -1,7 +1,7 @@
 pub mod pyth_program {
     use solana_program::declare_id;
     #[cfg(feature = "mainnet-beta")]
-    declare_id!("FsJ3A3u2vn5cTVofAjvy6y5kwABJAqYWpe4975bi2epH");
+    declare_id!("EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr");
     #[cfg(not(feature = "mainnet-beta"))]
     declare_id!("gSbePebfvPy7tRqimPoVecS2UsBvYv46ynrzWocc92s");
 }
@@ -72,7 +72,7 @@ pub mod marinade_mainnet {
 
 pub mod admin_hot_wallet {
     use solana_program::declare_id;
-    declare_id!("5hMjmxexWu954pX9gB9jkHxMqdjpxArQS2XdvkaevRax");
+    declare_id!("BiLCTDe2KphnuAN4Ja6rT5Pt73QyzP3HWboZdUoFygi3");
 }
 
 pub mod if_rebalance_wallet {

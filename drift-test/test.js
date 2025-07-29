@@ -89,7 +89,7 @@ async function main() {
       );
       
       console.log('\nCalculated user account address:', userAccountPublicKey.toString());
-      
+    
       const userAccountInfo = await connection.getAccountInfo(userAccountPublicKey);
       const userAccountExists = userAccountInfo !== null;
       console.log('User account exists:', userAccountExists);
@@ -97,7 +97,7 @@ async function main() {
       if (!userAccountExists) {
         console.log('\nYou need to initialize a user account to interact with Drift.');
         const answer = await question('Would you like to initialize a user account now? (y/n): ');
-        
+    
         if (answer.toLowerCase() === 'y') {
           console.log('\nInitializing user account...');
           try {
@@ -122,36 +122,36 @@ async function main() {
         }
       } else {
         // User account exists, try to get more information
-        try {
-          const user = await driftClient.getUser();
-          console.log('\nUser Information:');
-          console.log('Sub account ID:', user.getUserAccount().subAccountId);
-          console.log('Margin trading enabled:', user.getUserAccount().marginTradingEnabled);
-          
-          // Try to get positions
-          const perpPositions = user.getPerpPositionsWithMetadata();
-          if (perpPositions.length > 0) {
-            console.log('\nPerpetual Positions:');
-            perpPositions.forEach(pos => {
-              console.log(`Market ${pos.marketIndex}: Base Asset Amount: ${pos.baseAssetAmount.toString()}, Quote Asset Amount: ${pos.quoteAssetAmount.toString()}`);
-            });
-          } else {
-            console.log('\nNo perpetual positions found.');
-          }
-          
-          // Try to get deposits
-          const spotPositions = user.getTokenPositionsWithMetadata();
-          if (spotPositions.length > 0) {
-            console.log('\nSpot Positions:');
-            spotPositions.forEach(pos => {
-              console.log(`Market ${pos.marketIndex}: Token Amount: ${pos.tokenAmount.toString()}`);
-            });
-          } else {
-            console.log('\nNo spot positions found.');
-          }
-        } catch (err) {
-          console.error('Error fetching user details:', err.message);
+      try {
+        const user = await driftClient.getUser();
+        console.log('\nUser Information:');
+        console.log('Sub account ID:', user.getUserAccount().subAccountId);
+        console.log('Margin trading enabled:', user.getUserAccount().marginTradingEnabled);
+        
+        // Try to get positions
+        const perpPositions = user.getPerpPositionsWithMetadata();
+        if (perpPositions.length > 0) {
+          console.log('\nPerpetual Positions:');
+          perpPositions.forEach(pos => {
+            console.log(`Market ${pos.marketIndex}: Base Asset Amount: ${pos.baseAssetAmount.toString()}, Quote Asset Amount: ${pos.quoteAssetAmount.toString()}`);
+          });
+        } else {
+          console.log('\nNo perpetual positions found.');
         }
+        
+        // Try to get deposits
+        const spotPositions = user.getTokenPositionsWithMetadata();
+        if (spotPositions.length > 0) {
+          console.log('\nSpot Positions:');
+          spotPositions.forEach(pos => {
+            console.log(`Market ${pos.marketIndex}: Token Amount: ${pos.tokenAmount.toString()}`);
+          });
+        } else {
+          console.log('\nNo spot positions found.');
+        }
+      } catch (err) {
+        console.error('Error fetching user details:', err.message);
+      }
       }
     } catch (err) {
       console.error('Error checking user account:', err.message);

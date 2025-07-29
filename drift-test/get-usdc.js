@@ -85,7 +85,7 @@ async function tryDriftTokenFaucet(connection, keypair, usdcMint, _tokenAccount)
     console.log('🚰 Attempting to use Drift token faucet...');
     
     // This is the token faucet program ID from Anchor.toml
-    const tokenFaucetProgramId = new PublicKey('V4v1mQiAdLz4qwckEb45WqHYceYizoib39cDBHSWfaB');
+    const tokenFaucetProgramId = new PublicKey('5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE');
     
     // Try to find the faucet account for USDC
     const [faucetAccount] = await PublicKey.findProgramAddress(

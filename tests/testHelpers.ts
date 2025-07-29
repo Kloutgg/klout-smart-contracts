@@ -106,7 +106,7 @@ export async function mockOracleNoProgram(
 
 	const program = new Program(
 		pythIDL as anchor.Idl,
-		new PublicKey('FsJ3A3u2vn5cTVofAjvy6y5kwABJAqYWpe4975bi2epH'),
+		new PublicKey('EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr'),
 		provider
 	);
 
@@ -794,7 +794,7 @@ export const setFeedPriceNoProgram = async (
 
 	const program = new Program(
 		pythIDL as anchor.Idl,
-		new PublicKey('FsJ3A3u2vn5cTVofAjvy6y5kwABJAqYWpe4975bi2epH'),
+		new PublicKey('EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr'),
 		provider
 	);
 

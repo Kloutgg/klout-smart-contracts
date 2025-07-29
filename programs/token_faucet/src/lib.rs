@@ -4,7 +4,7 @@ use anchor_spl::token::{self, Mint, Token, TokenAccount};
 #[cfg(feature = "mainnet-beta")]
 declare_id!("AmNeSW4UMPFBodCjEJD22G3kA8EraUGkhxr3GmdyEF4f");
 #[cfg(not(feature = "mainnet-beta"))]
-declare_id!("V4v1mQiAdLz4qwckEb45WqHYceYizoib39cDBHSWfaB");
+declare_id!("5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE");
 
 #[program]
 pub mod token_faucet {
