@@ -28,7 +28,7 @@ export async function fetchHeliusPriorityFee(
 	heliusRpcUrl: string,
 	lookbackDistance: number,
 	addresses: string[]
-): Promise<HeliusPriorityFeeResponse> {
+): Promise<HeliusPriorityFeeResponse | undefined> {
 	try {
 		const response = await fetch(heliusRpcUrl, {
 			method: 'POST',
@@ -48,7 +48,7 @@ export async function fetchHeliusPriorityFee(
 				],
 			}),
 		});
-		return await response.json();
+		return (await response.json()) as HeliusPriorityFeeResponse;
 	} catch (err) {
 		console.error(err);
 	}

@@ -15,15 +15,16 @@ const {
 const fs = require('fs');
 
 // Configuration
-const DEVNET_RPC = "https://api.devnet.solana.com";
-const WALLET_PATH = "../bilc.json";
+// const DEVNET_RPC = "https://api.devnet.solana.com";
+const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01";
+const WALLET_PATH = "./main-id.json";
 const DRIFT_PROGRAM_ID = new PublicKey("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu");
-const USDC_MINT = new PublicKey("86wU3KdufXJAiQAipYnx6tZH76np9jw7FYFgVUsxekAC");
+// const USDC_MINT = new PublicKey("86wU3KdufXJAiQAipYnx6tZH76np9jw7FYFgVUsxekAC");
 
 // DEF Market Configuration
 const DEF_MARKET = {
-  symbol: 'DEF',
-  marketIndex: 1,  // Using index 1 for DEF market (ABC is 0)
+  symbol: 'VK-HS',
+  marketIndex: 6,  // Using index 1 for DEF market (ABC is 0)
   startPrice: 500,  // $500 starting price
   maxPrice: 2000,   // $2000 price ceiling (4x start price)
 };
@@ -127,8 +128,8 @@ async function main() {
     console.log(`\n🏪 Step 2: Creating ${DEF_MARKET.symbol} Perpetual Market with Full AMM Liquidity`);
     
     // Large equal reserves for substantial liquidity
-    const ammInitialQuoteAssetAmount = new BN(1000).mul(BASE_PRECISION);
-    const ammInitialBaseAssetAmount = new BN(1000).mul(BASE_PRECISION);
+    const ammInitialQuoteAssetAmount = new BN(10000).mul(BASE_PRECISION);
+    const ammInitialBaseAssetAmount = new BN(10000).mul(BASE_PRECISION);
     const periodicity = new BN(3600); // 1 hour
     const pegMultiplier = PEG_PRECISION.mul(new BN(DEF_MARKET.startPrice)); // $500 peg
     
@@ -150,7 +151,7 @@ async function main() {
         periodicity,                         // periodicity
         pegMultiplier,                       // pegMultiplier
         OracleSource.Prelaunch,              // oracleSource - Critical: Use prelaunch oracle source
-        ContractTier.A,                      // contractTier
+        ContractTier.HIGHLY_SPECULATIVE,                      // contractTier
         AMM_CONFIG.marginRatioInitial,       // marginRatioInitial (2000 = 20%)
         AMM_CONFIG.marginRatioMaintenance,   // marginRatioMaintenance (500 = 5%)
         0,                                   // liquidatorFee
