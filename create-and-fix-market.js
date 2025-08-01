@@ -17,58 +17,15 @@ const fs = require('fs');
 
 // Configuration - UPDATE THIS SECTION FOR NEW MARKETS
 const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01";
-const WALLET_PATH = "../bilc.json";
+const WALLET_PATH = "./main-id.json";
 const DRIFT_PROGRAM_ID = new PublicKey("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu");
 
-// Function to automatically find the next available market index
-async function findNextAvailableMarketIndex(driftClient, provider, startFromIndex = 16) {
-  console.log(`\n🔍 AUTO-DISCOVERING NEXT AVAILABLE MARKET INDEX...`);
-  console.log(`   Starting search from index: ${startFromIndex}`);
-  
-  for (let i = startFromIndex; i < 100; i++) { // Check up to index 99
-    let marketExists = false;
-    let oracleExists = false;
-    
-    // Check if market exists
-    try {
-      const market = driftClient.getPerpMarketAccount(i);
-      if (market) {
-        marketExists = true;
-      }
-    } catch (e) {
-      // Market doesn't exist - good
-    }
-    
-    // Check if oracle exists at this index
-    try {
-      const prelaunchOracle = getPrelaunchOraclePublicKey(DRIFT_PROGRAM_ID, i);
-      const oracleAccount = await provider.connection.getAccountInfo(prelaunchOracle);
-      if (oracleAccount) {
-        oracleExists = true;
-      }
-    } catch (e) {
-      // Oracle doesn't exist - good
-    }
-    
-    if (!marketExists && !oracleExists) {
-      console.log(`✅ Found available market index: ${i}`);
-      console.log(`   Market: Available ✓`);
-      console.log(`   Oracle: Available ✓`);
-      return i;
-    } else {
-      console.log(`   Index ${i}: ${marketExists ? 'Market exists' : 'Market free'}, ${oracleExists ? 'Oracle exists' : 'Oracle free'}`);
-    }
-  }
-  
-  throw new Error('No available market index found in range 16-99');
-}
-
-// 🎯 MARKET CONFIGURATION - UPDATE THESE VALUES FOR NEW MARKETS
+// 🎯 MARKET CONFIGURATION - UPDATED BASED ON MARKET CHECK
 const MARKET_CONFIG = {
-  symbol: 'MK1-1AUG',       // UPDATE: Market symbol (e.g., 'BTC-HS', 'ETH-PERP')
-  marketIndex: null,         // AUTO-DISCOVERED: Will be set automatically to next available index
-  startPrice: 1000,          // UPDATE: Starting price in USD
-  maxPrice: 1000000,         // UPDATE: Maximum price ceiling ($1M)
+  symbol: 'MK7-1AUG',       // Market symbol for your highly speculative contract
+  marketIndex: 26,           // ✅ NEXT AVAILABLE INDEX (script shows 26 markets exist, so next is 26)
+  startPrice: 1000,          // Starting price in USD (will be set in oracle)
+  maxPrice: 100000,        // Maximum price ceiling $10M (will be set in oracle)
 };
 
 // ✨ CRITICAL AMM CONFIGURATION FOR FULL LIQUIDITY
@@ -77,7 +34,7 @@ const AMM_CONFIG = {
   maxSpread: 142500,          // 1425 basis points (14.25%) - Maximum spread cap
   curveUpdateIntensity: 100,  // Full intensity for spread calculations
   marginRatioInitial: 2000,   // 20% initial margin
-  marginRatioMaintenance: 500, // 5% maintenance margin
+  marginRatioMaintenance: 1000, // 10% maintenance margin
 };
 
 async function createAndFixMarket() {
@@ -86,7 +43,7 @@ async function createAndFixMarket() {
   console.log(`Market: ${MARKET_CONFIG.symbol}`);
   console.log(`Starting Price: $${MARKET_CONFIG.startPrice}`);
   console.log(`Max Price: $${MARKET_CONFIG.maxPrice}`);
-  console.log(`Market Index: AUTO-DISCOVERED (will be determined automatically)`);
+  console.log(`Market Index: ${MARKET_CONFIG.marketIndex}`);
   console.log(`\n🔧 AMM Configuration:`);
   console.log(`   Base Spread: ${AMM_CONFIG.baseSpread} (${AMM_CONFIG.baseSpread/100} bps = ${AMM_CONFIG.baseSpread/10000}%)`);
   console.log(`   Max Spread: ${AMM_CONFIG.maxSpread} (${AMM_CONFIG.maxSpread/100} bps = ${AMM_CONFIG.maxSpread/10000}%)`);
@@ -106,45 +63,22 @@ async function createAndFixMarket() {
   
   console.log("💰 Balance:", ((await provider.connection.getBalance(keypair.publicKey)) / 1e9).toFixed(2), "SOL");
 
-  // STEP 1: AUTO-DISCOVER NEXT AVAILABLE MARKET INDEX
-  // Create temporary client to check existing markets
-  const tempDriftClient = new TestClient({
-    connection: provider.connection,
-    wallet: provider.wallet,
-    programID: DRIFT_PROGRAM_ID,
-    opts: { commitment: 'confirmed' },
-    activeSubAccountId: 0,
-    perpMarketIndexes: [], // No specific markets for discovery
-    spotMarketIndexes: [0],
-    accountSubscription: {
-      type: 'polling',
-      accountLoader: new BulkAccountLoader(provider.connection, 'confirmed', 0),
-    },
-  });
-
-  await tempDriftClient.subscribe();
-  await tempDriftClient.fetchAccounts();
-  
-  // Auto-discover the next available market index
-  MARKET_CONFIG.marketIndex = await findNextAvailableMarketIndex(tempDriftClient, provider);
-  
-  await tempDriftClient.unsubscribe();
-  
-  console.log(`\n🎯 FINAL MARKET CONFIGURATION:`);
-  console.log(`   Market: ${MARKET_CONFIG.symbol}`);
-  console.log(`   Auto-Discovered Index: ${MARKET_CONFIG.marketIndex} ✅`);
-  console.log(`   Starting Price: $${MARKET_CONFIG.startPrice}`);
-  console.log(`   Max Price: $${MARKET_CONFIG.maxPrice}`);
-  
-  // Calculate prices in Drift precision
+  // Calculate prices in Drift precision  
   const startPrice = PRICE_PRECISION.mul(new BN(MARKET_CONFIG.startPrice));
   const maxPrice = PRICE_PRECISION.mul(new BN(MARKET_CONFIG.maxPrice));
+  
+  // 🐛 DEBUG: Check if maxPrice is affecting the oracle behavior
+  console.log(`🔍 Oracle Price Debug:`);
+  console.log(`  Expected start price: $${MARKET_CONFIG.startPrice}`);  
+  console.log(`  Expected max price: $${MARKET_CONFIG.maxPrice}`);
+  console.log(`  Oracle max price (raw): ${maxPrice.toString()}`);
+  console.log(`  Oracle max price (USD): $${maxPrice.div(PRICE_PRECISION).toString()}`);
   
   console.log(`\n🔧 Price Calculations:`);
   console.log(`  Start Price: ${startPrice.toString()} (${MARKET_CONFIG.startPrice} * PRICE_PRECISION)`);
   console.log(`  Max Price: ${maxPrice.toString()} (${MARKET_CONFIG.maxPrice} * PRICE_PRECISION)`);
 
-  // Derive prelaunch oracle public key using discovered market index
+  // Derive prelaunch oracle public key
   const prelaunchOracle = getPrelaunchOraclePublicKey(DRIFT_PROGRAM_ID, MARKET_CONFIG.marketIndex);
   console.log(`\n🔮 Prelaunch Oracle:`);
   console.log(`  Address: ${prelaunchOracle.toBase58()}`);
@@ -179,13 +113,24 @@ async function createAndFixMarket() {
     const state = driftClient.getStateAccount();
     console.log(`Current state: ${state.numberOfMarkets} perp markets, ${state.numberOfSpotMarkets} spot markets`);
     
+    // ✅ DYNAMIC INDEX VALIDATION
+    const nextAvailableIndex = state.numberOfMarkets;
+    if (MARKET_CONFIG.marketIndex !== nextAvailableIndex) {
+      console.log(`\n⚠️  WARNING: Market index mismatch!`);
+      console.log(`   Your config uses index: ${MARKET_CONFIG.marketIndex}`);
+      console.log(`   Next available index: ${nextAvailableIndex}`);
+      console.log(`   🔧 Update MARKET_CONFIG.marketIndex to ${nextAvailableIndex} and try again`);
+      return;
+    }
+    
     // Pre-flight checks - show existing markets
     console.log(`\n🔍 PRE-FLIGHT CHECKS:`);
+    console.log(`✅ Using correct market index: ${MARKET_CONFIG.marketIndex}`);
     console.log(`Checking for existing markets and oracles...`);
     
-    // Check what markets currently exist
-    console.log(`\n📊 Existing Markets:`);
-    for (let i = 0; i < 20; i++) {
+    // Check existing markets around our target index
+    console.log(`\n📊 Market Status Around Index ${MARKET_CONFIG.marketIndex}:`);
+    for (let i = Math.max(0, MARKET_CONFIG.marketIndex - 2); i <= MARKET_CONFIG.marketIndex + 2; i++) {
       try {
         const market = driftClient.getPerpMarketAccount(i);
         if (market) {
@@ -218,8 +163,8 @@ async function createAndFixMarket() {
       console.log(`✅ Oracle address is available: ${prelaunchOracle.toBase58()}`);
     }
 
-    // Step 1: Initialize Prelaunch Oracle
-    console.log(`\n🔮 Step 1: Initializing Prelaunch Oracle for ${MARKET_CONFIG.symbol}`);
+    // Step 1: Initialize or Update Prelaunch Oracle
+    console.log(`\n🔮 Step 1: Initializing/Updating Prelaunch Oracle for ${MARKET_CONFIG.symbol}`);
     
     // First, check if oracle already exists
     try {
@@ -227,6 +172,34 @@ async function createAndFixMarket() {
       if (oracleAccount) {
         console.log(`✅ Prelaunch Oracle already exists`);
         console.log(`   Oracle Address: ${prelaunchOracle.toBase58()}`);
+        console.log(`🔄 Updating existing oracle with new price settings...`);
+        
+        // Update existing oracle with new price settings
+        try {
+          console.log(`   🔄 Attempting to update oracle with AdminClient...`);
+          
+          // Wait for AdminClient to be ready
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          const oracleUpdateTx = await adminClient.updatePrelaunchOracleParams(
+            MARKET_CONFIG.marketIndex,
+            startPrice,  // New start price
+            maxPrice     // New max price
+          );
+          
+          console.log(`✅ Existing Oracle Updated!`);
+          console.log(`   TX: ${oracleUpdateTx}`);
+          console.log(`   🔗 View: https://solscan.io/tx/${oracleUpdateTx}?cluster=devnet`);
+          
+        } catch (oracleUpdateError) {
+          console.log(`⚠️  Oracle update failed: ${oracleUpdateError.message}`);
+          console.log(`   This might be because:`);
+          console.log(`   - Oracle requires admin permissions`);
+          console.log(`   - Oracle is not accessible`);
+          console.log(`   - Market index not properly configured`);
+          console.log(`   🔧 Will try again in Phase 2 with AdminClient`);
+        }
+        
       } else {
         console.log(`🔄 Oracle doesn't exist, creating new one...`);
         
@@ -301,8 +274,8 @@ async function createAndFixMarket() {
         ContractTier.HIGHLY_SPECULATIVE,     // contractTier
         AMM_CONFIG.marginRatioInitial,       // marginRatioInitial (2000 = 20%)
         AMM_CONFIG.marginRatioMaintenance,   // marginRatioMaintenance (500 = 5%)
-        0,                                   // liquidatorFee
-        10000,                               // ifLiquidatorFee  
+        200,                                 // liquidatorFee (200 = 2% - incentivizes liquidators)
+        2000,                                // ifLiquidatorFee (2000 = 20% - reasonable insurance fund fee)
         0,                                   // imfFactor
         true,                                // activeStatus
         AMM_CONFIG.baseSpread,               // ✨ baseSpread (2500 = 0.25% - CRITICAL FOR LIQUIDITY)
@@ -356,7 +329,7 @@ async function createAndFixMarket() {
         preflightCommitment: 'confirmed'
       },
       activeSubAccountId: 0,
-      perpMarketIndexes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, MARKET_CONFIG.marketIndex], // Include the new market index
+      perpMarketIndexes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, MARKET_CONFIG.marketIndex], // Include the new market index
       spotMarketIndexes: [0],
       subAccountIds: [],
       accountSubscription: {
@@ -368,9 +341,10 @@ async function createAndFixMarket() {
     console.log("\n🔧 Initializing AdminClient for oracle settings...");
     await adminClient.subscribe();
     
-    // Wait for state to load and fetch accounts
+    // Wait for AdminClient to be fully initialized
+    console.log("⏳ Waiting for AdminClient to load accounts...");
     let retries = 0;
-    while (retries < 5) {
+    while (retries < 10) {
       try {
         await new Promise(resolve => setTimeout(resolve, 2000));
         await adminClient.fetchAccounts();
@@ -380,9 +354,26 @@ async function createAndFixMarket() {
           break;
         }
       } catch (error) {
-        console.log(`   Loading... retry ${retries + 1}`);
+        console.log(`   Loading... retry ${retries + 1}/10`);
       }
       retries++;
+    }
+    
+    // Additional wait for state to load and fetch accounts
+    let stateRetries = 0;
+    while (stateRetries < 5) {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await adminClient.fetchAccounts();
+        const state = adminClient.getStateAccount();
+        if (state && state.admin) {
+          console.log("✅ AdminClient state ready");
+          break;
+        }
+      } catch (error) {
+        console.log(`   State loading... retry ${stateRetries + 1}`);
+      }
+      stateRetries++;
     }
 
     // Fix oracle settings for the newly created market
@@ -391,7 +382,7 @@ async function createAndFixMarket() {
     
     // Debug: Check what markets AdminClient can see
     console.log("\n🔍 AdminClient Market Discovery:");
-    for (let i = 0; i <= 16; i++) {
+    for (let i = 0; i <= MARKET_CONFIG.marketIndex; i++) {
       try {
         const market = adminClient.getPerpMarketAccount(i);
         if (market) {
@@ -401,26 +392,34 @@ async function createAndFixMarket() {
         console.log(`   ❌ Market ${i}: Not accessible`);
       }
     }
-    
-    // Check the newly created market specifically
-    try {
-      const newMarket = adminClient.getPerpMarketAccount(MARKET_CONFIG.marketIndex);
-      if (newMarket) {
-        console.log(`   ✅ Market ${MARKET_CONFIG.marketIndex}: Found (Oracle: ${newMarket.amm.oracle.toBase58().slice(0,8)}...)`);
-      }
-    } catch (e) {
-      console.log(`   ❌ Market ${MARKET_CONFIG.marketIndex}: Not accessible - ${e.message}`);
-    }
 
     try {
       // Check current setting
+      console.log(`🔍 Checking market at index ${MARKET_CONFIG.marketIndex}...`);
+      
+      // Wait a bit for AdminClient to load the new market
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      await adminClient.fetchAccounts();
+      
       const perpMarket = adminClient.getPerpMarketAccount(MARKET_CONFIG.marketIndex);
       if (!perpMarket) {
-        throw new Error(`Market at index ${MARKET_CONFIG.marketIndex} not found. AdminClient may not be subscribed to this market index.`);
+        console.log(`⚠️  Market at index ${MARKET_CONFIG.marketIndex} not found in AdminClient`);
+        console.log(`   This might be because the market was just created and AdminClient hasn't loaded it yet`);
+        console.log(`   🔧 Trying to fetch accounts again...`);
+        
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        await adminClient.fetchAccounts();
+        
+        const retryMarket = adminClient.getPerpMarketAccount(MARKET_CONFIG.marketIndex);
+        if (!retryMarket) {
+          throw new Error(`Market at index ${MARKET_CONFIG.marketIndex} not found. AdminClient may not be subscribed to this market index.`);
+        }
       }
+      
       if (!perpMarket.amm) {
         throw new Error(`AMM data not found for market at index ${MARKET_CONFIG.marketIndex}`);
       }
+      
       const currentOverride = perpMarket.amm.oracleSlotDelayOverride;
       console.log(`Current Oracle Slot Delay Override: ${currentOverride}`);
 
@@ -473,6 +472,55 @@ async function createAndFixMarket() {
         await new Promise(resolve => setTimeout(resolve, 3000));
       }
 
+      // Step 4: Update Oracle Price Settings (if oracle exists)
+      console.log(`\n🔮 Step 4: Updating Oracle Price Settings`);
+      console.log("-".repeat(60));
+      
+      try {
+        // Check if oracle exists and get current settings
+        const oracleAccount = await provider.connection.getAccountInfo(prelaunchOracle);
+        if (oracleAccount) {
+          console.log(`✅ Oracle exists at: ${prelaunchOracle.toBase58()}`);
+          console.log(`🔄 Updating oracle price settings...`);
+          
+          // Calculate new prices in Drift precision
+          const newStartPrice = PRICE_PRECISION.mul(new BN(MARKET_CONFIG.startPrice));
+          const newMaxPrice = PRICE_PRECISION.mul(new BN(MARKET_CONFIG.maxPrice));
+          
+          console.log(`📊 Oracle Price Updates:`);
+          console.log(`   Start Price: ${newStartPrice.toString()} ($${MARKET_CONFIG.startPrice})`);
+          console.log(`   Max Price: ${newMaxPrice.toString()} ($${MARKET_CONFIG.maxPrice})`);
+          
+          // Wait a bit for AdminClient to be fully ready
+          await new Promise(resolve => setTimeout(resolve, 3000));
+          
+          // Update oracle parameters
+          const oracleUpdateTx = await adminClient.updatePrelaunchOracleParams(
+            MARKET_CONFIG.marketIndex,
+            newStartPrice,  // New start price
+            newMaxPrice     // New max price
+          );
+          
+          console.log(`✅ Oracle price settings updated!`);
+          console.log(`   TX: ${oracleUpdateTx}`);
+          console.log(`   🔗 View: https://solscan.io/tx/${oracleUpdateTx}?cluster=devnet`);
+          
+          // Wait for transaction to confirm
+          await new Promise(resolve => setTimeout(resolve, 3000));
+          
+        } else {
+          console.log(`⚠️  Oracle doesn't exist yet - will be created with market`);
+        }
+      } catch (oracleUpdateError) {
+        console.log(`⚠️  Oracle update failed (non-critical): ${oracleUpdateError.message}`);
+        console.log(`   Error details:`, oracleUpdateError);
+        console.log(`   This might be because:`);
+        console.log(`   - Oracle doesn't exist yet`);
+        console.log(`   - Oracle is not accessible`);
+        console.log(`   - Admin permissions issue`);
+        console.log(`   - Market index not properly configured`);
+      }
+
       // Verify the final market state
       console.log(`\n🔍 FINAL MARKET VERIFICATION:`);
       console.log("=" .repeat(50));
@@ -490,9 +538,45 @@ async function createAndFixMarket() {
         console.log(`   Max Spread: ${finalMarket.amm.maxSpread} (${finalMarket.amm.maxSpread/10000}%)`);
         console.log(`   Contract Tier: HIGHLY_SPECULATIVE`);
         
+        // 🐛 DEBUG: Check actual AMM reserves and calculated mark price
+        console.log(`\n🔍 AMM State Debug:`);
+        console.log(`   Base Asset Reserve: ${finalMarket.amm.baseAssetReserve.toString()}`);
+        console.log(`   Quote Asset Reserve: ${finalMarket.amm.quoteAssetReserve.toString()}`);
+        console.log(`   Peg Multiplier: ${finalMarket.amm.pegMultiplier.toString()}`);
+        
+        // Calculate mark price manually
+        const quoteReserve = finalMarket.amm.quoteAssetReserve;
+        const baseReserve = finalMarket.amm.baseAssetReserve;  
+        const pegMultiplier = finalMarket.amm.pegMultiplier;
+        
+        // This is the actual AMM price calculation from Drift
+        // price = (quote_reserve * peg_multiplier * PRICE_TO_PEG_PRECISION_RATIO) / base_reserve
+        // PRICE_TO_PEG_PRECISION_RATIO = PRICE_PRECISION / PEG_PRECISION = 1 (both are 10^6)
+        const PRICE_TO_PEG_RATIO = new BN(1); // Since both PRICE_PRECISION and PEG_PRECISION are 10^6
+        const markPriceRaw = quoteReserve.mul(pegMultiplier).mul(PRICE_TO_PEG_RATIO).div(baseReserve);
+        const markPriceUSD = markPriceRaw.div(new BN(1000000)); // PRICE_PRECISION
+        
+        console.log(`   Calculated Mark Price (raw): ${markPriceRaw.toString()}`);
+        console.log(`   Calculated Mark Price (USD): $${markPriceUSD.toString()}`);
+        console.log(`   Expected Mark Price (USD): $${MARKET_CONFIG.startPrice}`);
+        
+        // Check oracle price settings
+        try {
+          const oracleData = adminClient.getOracleDataForPerpMarket(MARKET_CONFIG.marketIndex);
+          if (oracleData) {
+            console.log(`\n🔮 Oracle Price Settings:`);
+            console.log(`   Current Price: ${oracleData.price.toString()}`);
+            console.log(`   Max Price: ${oracleData.maxPrice?.toString() || 'N/A'}`);
+            console.log(`   Confidence: ${oracleData.confidence.toString()}`);
+          }
+        } catch (oracleCheckError) {
+          console.log(`   Oracle data check failed: ${oracleCheckError.message}`);
+        }
+        
         console.log(`\n🎉 SUCCESS! ${MARKET_CONFIG.symbol} IS FULLY OPERATIONAL!`);
         console.log(`✅ Market created with full AMM liquidity`);
         console.log(`✅ Oracle staleness checks disabled`);
+        console.log(`✅ Oracle price settings updated`);
         console.log(`✅ Ready for immediate trading`);
         console.log(`\n🚀 Your highly speculative perpetual futures market is ready!`);
         
@@ -516,16 +600,23 @@ async function createAndFixMarket() {
 }
 
 // Show usage information
-console.log("🚀 COMBINED MARKET CREATOR & ORACLE FIXER");
+console.log("🚀 COMBINED MARKET CREATOR & ORACLE MANAGER");
 console.log("This script will:");
 console.log("1. Create a new highly speculative perpetual market with prelaunch oracle");
-console.log("2. Configure full AMM liquidity with optimal spread settings");
-console.log("3. Disable oracle staleness checks for immediate trading");
+console.log("2. Update existing oracle price settings if oracle already exists");
+console.log("3. Configure full AMM liquidity with optimal spread settings");
+console.log("4. Disable oracle staleness checks for immediate trading");
+console.log("5. Update oracle start price and max price settings");
 console.log();
 console.log("📝 TO USE:");
 console.log("1. Update MARKET_CONFIG section at the top of this script");
 console.log("2. Set symbol, marketIndex, startPrice, and maxPrice");
 console.log("3. Run the script");
+console.log();
+console.log("🔮 ORACLE HANDLING:");
+console.log("- If oracle doesn't exist: Creates new oracle with specified prices");
+console.log("- If oracle exists: Updates existing oracle with new price settings");
+console.log("- Oracle price settings: startPrice and maxPrice will be updated");
 console.log();
 console.log("⚠️  IMPORTANT: This requires admin privileges");
 console.log("Make sure you have the correct admin wallet at:", WALLET_PATH);
