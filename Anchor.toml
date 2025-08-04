@@ -18,7 +18,7 @@ watch_build = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c 
 watch_cargo = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c cargo test -- --show-output'
 
 [programs.devnet]
-drift = "EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu"
+drift = "4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY"
 pyth = "EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr"
 token_faucet = "5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE"
 

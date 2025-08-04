@@ -78,7 +78,7 @@ fn amm_pool_balance_liq_fees_example() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -194,7 +194,7 @@ fn amm_pred_expiry_price_yes_market_example() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -307,7 +307,7 @@ fn amm_pred_expiry_price_market_example() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -419,7 +419,7 @@ fn amm_pred_settle_market_example() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -522,7 +522,7 @@ fn amm_pred_market_example() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -598,7 +598,7 @@ fn amm_ref_price_decay_tail_test() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -761,7 +761,7 @@ fn amm_ref_price_offset_decay_logic() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -920,7 +920,7 @@ fn amm_negative_ref_price_offset_decay_logic() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -1084,7 +1084,7 @@ fn amm_perp_ref_offset() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -1200,7 +1200,7 @@ fn amm_split_large_k() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -1327,7 +1327,7 @@ fn test_quote_unsettled_lp() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -1451,7 +1451,7 @@ fn amm_split_large_k_with_rebase() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -2696,7 +2696,7 @@ fn update_amm_near_boundary() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::from_str("2QeqpeJUVo2LBWNELRfcBwJgrNoxJQSd7gokcaM5nvaa").unwrap();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -2739,7 +2739,7 @@ fn update_amm_near_boundary2() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::from_str("2QeqpeJUVo2LBWNELRfcBwJgrNoxJQSd7gokcaM5nvaa").unwrap();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -2781,7 +2781,7 @@ fn recenter_amm_1() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::from_str("2QeqpeJUVo2LBWNELRfcBwJgrNoxJQSd7gokcaM5nvaa").unwrap();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -2861,7 +2861,7 @@ fn recenter_amm_2() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::from_str("91NsaUmTNNdLGbYtwmoiYSn9SgWHCsZiChfMYMYZ2nQx").unwrap();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -2990,7 +2990,7 @@ fn test_move_amm() {
     let perp_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::from_str("91NsaUmTNNdLGbYtwmoiYSn9SgWHCsZiChfMYMYZ2nQx").unwrap();
-    let owner = Pubkey::from_str("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu").unwrap();
+    let owner = Pubkey::from_str("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY").unwrap();
     let mut lamports = 0;
     let perp_market_account_info =
         create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);

@@ -14,7 +14,7 @@ const fs = require('fs');
 // Configuration
 const DEVNET_RPC = "https://api.devnet.solana.com";
 const WALLET_PATH = "../bilc.json";
-const DRIFT_PROGRAM_ID = new PublicKey("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu");
+const DRIFT_PROGRAM_ID = new PublicKey("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
 const USDC_MINT = new PublicKey("86wU3KdufXJAiQAipYnx6tZH76np9jw7FYFgVUsxekAC");
 
 // EXACT TEAM ORACLE CONFIGURATION

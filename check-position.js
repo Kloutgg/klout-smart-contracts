@@ -12,7 +12,7 @@ const fs = require('fs');
 // Configuration
 const DEVNET_RPC = "https://api.devnet.solana.com";
 const TRADING_WALLET = "FNQrPwcUaH5KfFmDqoLNrNwkAQMoWfvaZpKsEkRtJ9At";  // Your actual trading wallet
-const DRIFT_PROGRAM_ID = new PublicKey("EZ535owQgTdZAStTvEe9NSdthHCqd1GCKwEYq29Exzhu");
+const DRIFT_PROGRAM_ID = new PublicKey("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
 
 async function main() {
   console.log("🔍 CHECKING MNO-PERP POSITION STATUS");
