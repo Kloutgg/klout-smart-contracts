@@ -5,14 +5,14 @@ const { AdminClient, initialize, Wallet } = require('./sdk/lib/node');
 const fs = require('fs');
 
 // Configuration
-const DEVNET_RPC_URL = 'https://devnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97';
+const DEVNET_RPC_URL = 'https://mainnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97';
 const KEYPAIR_PATH = '../bilc.json';
 
 // Devnet addresses from Anchor.toml
-const DRIFT_PROGRAM_ID = '4kH6FqaZvGj1Mckg2wkZ75YhNYK7mm1U2ugUoUXWy45T';
+const DRIFT_PROGRAM_ID = '4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY';
 
 // USDC mint address - specify your USDC mint here
-const USDC_MINT_ADDRESS = 'DJYEp7qEpqSUBVYHUwYJQkEQLamhyewokBTtk5ccViGw'; // Replace with your USDC mint address
+const USDC_MINT_ADDRESS = 'HPhjqD2yktd9jvyvUrvkVSarUvs8gWT2CTGct5JzrZ48'; // Replace with your USDC mint address
 
 function loadKeypair(path) {
   const secretKeyString = fs.readFileSync(path, 'utf8');
@@ -33,7 +33,7 @@ async function initializeDrift() {
   
   // Connect to devnet
   const connection = new Connection(DEVNET_RPC_URL, 'confirmed');
-  console.log('🔗 Connected to devnet');
+  console.log('🔗 Connected to mainnet');
   
   // Check wallet balance
   const balance = await connection.getBalance(keypair.publicKey);
@@ -50,8 +50,8 @@ async function initializeDrift() {
     // Initialize Drift
     console.log('\n🏗️ Setting up Drift...');
     
-    // Get SDK config for devnet
-    initialize({ env: 'devnet' });
+    // Get SDK config for mainnet
+    initialize({ env: 'mainnet-beta' });
     console.log('⚙️ SDK config loaded');
     
     // Initialize AdminClient (which has initialize method)
@@ -59,7 +59,7 @@ async function initializeDrift() {
       connection: connection,
       wallet: new Wallet(keypair),
       programID: new PublicKey(DRIFT_PROGRAM_ID),
-      env: 'devnet'
+      env: 'mainnet-beta'
     });
     
     console.log('🏗️ AdminClient created');
