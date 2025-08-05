@@ -11,6 +11,8 @@
   "description": "",
   "dependencies": {
     "@drift-labs/sdk": "^2.129.0-beta.7",
-    "@solana/web3.js": "^1.98.2"
+    "@solana/web3.js": "^1.98.2",
+    "@solana/spl-token": "^0.4.6",
+    "@metaplex-foundation/mpl-token-metadata": "^2.13.0"
   }
 }
