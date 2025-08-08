@@ -16,31 +16,33 @@ const {
 const fs = require('fs');
 
 // Configuration - UPDATE THIS SECTION FOR NEW MARKETS
-const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01";
-const WALLET_PATH = "./main-id.json";
-const DRIFT_PROGRAM_ID = new PublicKey("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
+const DEVNET_RPC = "https://mainnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97";
+const WALLET_PATH = "../bilc.json";
+const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
 
 // 🎯 MARKET CONFIGURATION - UPDATED BASED ON MARKET CHECK
 const MARKET_CONFIG = {
-  symbol: 'MK7-1AUG',       // Market symbol for your highly speculative contract
-  marketIndex: 26,           // ✅ NEXT AVAILABLE INDEX (script shows 26 markets exist, so next is 26)
+  symbol: 'TRUMP',       // Market symbol for your highly speculative contract
+  name: 'TRUMP Attention Market',    // Market name for display purposes
+  marketIndex: 0,           // ✅ NEXT AVAILABLE INDEX (script shows 26 markets exist, so next is 26)
   startPrice: 1000,          // Starting price in USD (will be set in oracle)
   maxPrice: 100000,        // Maximum price ceiling $10M (will be set in oracle)
 };
 
 // ✨ CRITICAL AMM CONFIGURATION FOR FULL LIQUIDITY
 const AMM_CONFIG = {
-  baseSpread: 2500,           // 25 basis points (0.25%) - ENABLES FULL AMM LIQUIDITY
-  maxSpread: 142500,          // 1425 basis points (14.25%) - Maximum spread cap
-  curveUpdateIntensity: 100,  // Full intensity for spread calculations
-  marginRatioInitial: 2000,   // 20% initial margin
-  marginRatioMaintenance: 1000, // 10% maintenance margin
+  baseSpread: 1500,           // 25 basis points (0.25%) - ENABLES FULL AMM LIQUIDITY
+  maxSpread: 1600,          // 1425 basis points (14.25%) - Maximum spread cap
+  curveUpdateIntensity: 0,  // Full intensity for spread calculations
+  marginRatioInitial: 10000,   // 20% initial margin
+  marginRatioMaintenance: 3000, // 10% maintenance margin
 };
 
 async function createAndFixMarket() {
   console.log("🚀 CREATING & CONFIGURING HIGHLY SPECULATIVE MARKET");
   console.log("=" .repeat(70));
   console.log(`Market: ${MARKET_CONFIG.symbol}`);
+  console.log(`Market Name: ${MARKET_CONFIG.name}`);
   console.log(`Starting Price: $${MARKET_CONFIG.startPrice}`);
   console.log(`Max Price: $${MARKET_CONFIG.maxPrice}`);
   console.log(`Market Index: ${MARKET_CONFIG.marketIndex}`);
@@ -189,7 +191,7 @@ async function createAndFixMarket() {
           
           console.log(`✅ Existing Oracle Updated!`);
           console.log(`   TX: ${oracleUpdateTx}`);
-          console.log(`   🔗 View: https://solscan.io/tx/${oracleUpdateTx}?cluster=devnet`);
+          console.log(`   🔗 View: https://solscan.io/tx/${oracleUpdateTx}`);
           
         } catch (oracleUpdateError) {
           console.log(`⚠️  Oracle update failed: ${oracleUpdateError.message}`);
@@ -212,7 +214,7 @@ async function createAndFixMarket() {
           
           console.log(`✅ Prelaunch Oracle Initialized!`);
           console.log(`   TX: ${oracleTxSig}`);
-          console.log(`   🔗 View: https://solscan.io/tx/${oracleTxSig}?cluster=devnet`);
+          console.log(`   🔗 View: https://solscan.io/tx/${oracleTxSig}`);
           
         } catch (oracleError) {
           console.log(`❌ Oracle initialization failed: ${oracleError.message}`);
@@ -282,26 +284,21 @@ async function createAndFixMarket() {
         AMM_CONFIG.maxSpread,                // maxSpread (142500 = 14.25%)
         new BN(0),                          // maxOpenInterest (0 = unlimited)
         new BN(0),                          // maxRevenueWithdrawPerPeriod
-        new BN(0)                           // contractType (0 = perpetual)
+        new BN(0),                          // quoteMaxInsurance
+        undefined,                          // orderStepSize (use default)
+        undefined,                          // orderTickSize (use default) 
+        undefined,                          // minOrderSize (use default)
+        undefined,                          // concentrationCoefScale (use default)
+        AMM_CONFIG.curveUpdateIntensity,    // curveUpdateIntensity
+        0,                                  // ammJitIntensity (use default)
+        MARKET_CONFIG.name                  // 📝 Market name - set directly in creation!
       );
 
       console.log(`✅ ${MARKET_CONFIG.symbol} MARKET CREATED WITH FULL AMM LIQUIDITY!`);
+      console.log(`   Market name: ${MARKET_CONFIG.name}`);
+      console.log(`   Curve update intensity: ${AMM_CONFIG.curveUpdateIntensity}%`);
       console.log(`   TX: ${marketTxSig}`);
-      console.log(`   🔗 View: https://solscan.io/tx/${marketTxSig}?cluster=devnet`);
-      
-      // Step 3: Set Curve Update Intensity for Dynamic Spread Calculation
-      console.log(`\n⚙️ Step 3: Configuring AMM Parameters for Optimal Trading`);
-      
-      try {
-        const curveIntensityTx = await driftClient.updatePerpMarketCurveUpdateIntensity(
-          MARKET_CONFIG.marketIndex, 
-          AMM_CONFIG.curveUpdateIntensity
-        );
-        console.log(`✅ Curve Update Intensity set to ${AMM_CONFIG.curveUpdateIntensity}%`);
-        console.log(`   TX: ${curveIntensityTx}`);
-      } catch (curveError) {
-        console.log(`⚠️ Curve intensity update failed (non-critical): ${curveError.message}`);
-      }
+      console.log(`   🔗 View: https://solscan.io/tx/${marketTxSig}`);
       
     } catch (marketError) {
       if (marketError.message.includes('already initialized') || 
@@ -466,7 +463,7 @@ async function createAndFixMarket() {
 
         console.log(`✅ Oracle slot delay override applied!`);
         console.log(`📋 Transaction: ${result.txSig}`);
-        console.log(`   🔗 View: https://solscan.io/tx/${result.txSig}?cluster=devnet`);
+        console.log(`   🔗 View: https://solscan.io/tx/${result.txSig}`);
         
         // Wait a moment for the transaction to be confirmed
         await new Promise(resolve => setTimeout(resolve, 3000));
@@ -503,7 +500,7 @@ async function createAndFixMarket() {
           
           console.log(`✅ Oracle price settings updated!`);
           console.log(`   TX: ${oracleUpdateTx}`);
-          console.log(`   🔗 View: https://solscan.io/tx/${oracleUpdateTx}?cluster=devnet`);
+          console.log(`   🔗 View: https://solscan.io/tx/${oracleUpdateTx}`);
           
           // Wait for transaction to confirm
           await new Promise(resolve => setTimeout(resolve, 3000));
@@ -530,6 +527,7 @@ async function createAndFixMarket() {
       
       if (finalMarket && finalMarket.amm) {
         console.log(`✅ Market: ${MARKET_CONFIG.symbol}`);
+        console.log(`   Market Name: ${finalMarket.name || MARKET_CONFIG.name}`);
         console.log(`   Market Index: ${MARKET_CONFIG.marketIndex}`);
         console.log(`   Oracle: ${finalMarket.amm.oracle.toBase58()}`);
         console.log(`   Oracle Source: ${JSON.stringify(finalMarket.amm.oracleSource)}`);
@@ -573,8 +571,8 @@ async function createAndFixMarket() {
           console.log(`   Oracle data check failed: ${oracleCheckError.message}`);
         }
         
-        console.log(`\n🎉 SUCCESS! ${MARKET_CONFIG.symbol} IS FULLY OPERATIONAL!`);
-        console.log(`✅ Market created with full AMM liquidity`);
+        console.log(`\n🎉 SUCCESS! ${MARKET_CONFIG.symbol} (${finalMarket.name || MARKET_CONFIG.name}) IS FULLY OPERATIONAL!`);
+        console.log(`✅ Market created with full AMM liquidity and name in single transaction`);
         console.log(`✅ Oracle staleness checks disabled`);
         console.log(`✅ Oracle price settings updated`);
         console.log(`✅ Ready for immediate trading`);
@@ -602,7 +600,7 @@ async function createAndFixMarket() {
 // Show usage information
 console.log("🚀 COMBINED MARKET CREATOR & ORACLE MANAGER");
 console.log("This script will:");
-console.log("1. Create a new highly speculative perpetual market with prelaunch oracle");
+console.log("1. Create a new highly speculative perpetual market with prelaunch oracle and name");
 console.log("2. Update existing oracle price settings if oracle already exists");
 console.log("3. Configure full AMM liquidity with optimal spread settings");
 console.log("4. Disable oracle staleness checks for immediate trading");
@@ -610,7 +608,7 @@ console.log("5. Update oracle start price and max price settings");
 console.log();
 console.log("📝 TO USE:");
 console.log("1. Update MARKET_CONFIG section at the top of this script");
-console.log("2. Set symbol, marketIndex, startPrice, and maxPrice");
+console.log("2. Set symbol, name, marketIndex, startPrice, and maxPrice");
 console.log("3. Run the script");
 console.log();
 console.log("🔮 ORACLE HANDLING:");

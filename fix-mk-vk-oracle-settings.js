@@ -8,9 +8,9 @@ const {
 const fs = require('fs');
 
 // Configuration
-const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01";
+const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97";
 const WALLET_PATH = "../bilc.json"; // Adjust path as needed
-const DRIFT_PROGRAM_ID = new PublicKey("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
+const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
 
 // Markets to fix
 const MARKETS_TO_FIX = [

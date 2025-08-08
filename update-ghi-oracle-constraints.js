@@ -4,7 +4,7 @@ const fs = require('fs');
 
 // Configuration
 const DEVNET_RPC = 'https://api.devnet.solana.com';
-const DRIFT_PROGRAM_ID = new PublicKey("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
+const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
 const WALLET_PATH = '../bilc.json'; // Wallet file is one directory up
 
 // GHI-PERP market configuration

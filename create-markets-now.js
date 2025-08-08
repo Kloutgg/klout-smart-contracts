@@ -13,7 +13,7 @@ const fs = require('fs');
 // Configuration - Using YOUR working oracles
 const DEVNET_RPC = "https://api.devnet.solana.com";
 const WALLET_PATH = "../bilc.json";
-const DRIFT_PROGRAM_ID = new PublicKey("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
+const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
 const USDC_MINT = new PublicKey("86wU3KdufXJAiQAipYnx6tZH76np9jw7FYFgVUsxekAC"); // Your USDC
 
 // CRITICAL FIX: Equal reserves

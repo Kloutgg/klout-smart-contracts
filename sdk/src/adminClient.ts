@@ -3869,6 +3869,42 @@ export class AdminClient extends DriftClient {
 		});
 	}
 
+	public async updatePrelaunchOracleOnly(
+		perpMarketIndex: number,
+		newPrice: BN
+	): Promise<TransactionSignature> {
+		const updatePrelaunchOracleOnlyIx =
+			await this.getUpdatePrelaunchOracleOnlyIx(perpMarketIndex, newPrice);
+
+		const tx = await this.buildTransaction(updatePrelaunchOracleOnlyIx);
+
+		const { txSig } = await this.sendTransaction(tx);
+
+		return txSig;
+	}
+
+	public async getUpdatePrelaunchOracleOnlyIx(
+		perpMarketIndex: number,
+		newPrice: BN
+	): Promise<TransactionInstruction> {
+		return await this.program.instruction.updatePrelaunchOracleOnly(
+			perpMarketIndex,
+			newPrice,
+			{
+				accounts: {
+					admin: this.isSubscribed
+						? this.getStateAccount().admin
+						: this.wallet.publicKey,
+					state: await this.getStatePublicKey(),
+					prelaunchOracle: await getPrelaunchOraclePublicKey(
+						this.program.programId,
+						perpMarketIndex
+					),
+				},
+			}
+		);
+	}
+
 	public async updateSpotMarketFuel(
 		spotMarketIndex: number,
 		fuelBoostDeposits?: number,

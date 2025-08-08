@@ -6,7 +6,7 @@ const fs = require('fs');
 const DEVNET_RPC = "https://api.devnet.solana.com";
 const WALLET_PATH = "../bilc.json";
 const USER_WALLET = "FNQrPwcUaH5KfFmDqoLNrNwkAQMoWfvaZpKsEkRtJ9At";
-const DRIFT_PROGRAM_ID = new PublicKey("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
+const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
 const MNO_MARKET_INDEX = 4;
 
 async function main() {

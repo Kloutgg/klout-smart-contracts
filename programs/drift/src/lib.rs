@@ -35,9 +35,9 @@ mod test_utils;
 mod validation;
 
 #[cfg(feature = "mainnet-beta")]
-declare_id!("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
+declare_id!("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
 #[cfg(not(feature = "mainnet-beta"))]
-declare_id!("4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY");
+declare_id!("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
 
 #[program]
 pub mod drift {
@@ -1698,6 +1698,14 @@ pub mod drift {
         params: PrelaunchOracleParams,
     ) -> Result<()> {
         handle_update_prelaunch_oracle_params(ctx, params)
+    }
+
+    pub fn update_prelaunch_oracle_only(
+        ctx: Context<UpdatePrelaunchOracleOnly>,
+        perp_market_index: u16,
+        new_price: i64,
+    ) -> Result<()> {
+        handle_update_prelaunch_oracle_only(ctx, perp_market_index, new_price)
     }
 
     pub fn delete_prelaunch_oracle(

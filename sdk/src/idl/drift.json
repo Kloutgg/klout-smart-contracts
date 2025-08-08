@@ -1461,6 +1461,11 @@
           "name": "user",
           "isMut": true,
           "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": false,
+          "isSigner": true
         }
       ],
       "args": [
@@ -6730,6 +6735,10 @@
         {
           "name": "ammInventorySpreadAdjustment",
           "type": "i8"
+        },
+        {
+          "name": "referencePriceOffset",
+          "type": "i32"
         }
       ]
     },
@@ -7132,6 +7141,36 @@
           "type": {
             "defined": "PrelaunchOracleParams"
           }
+        }
+      ]
+    },
+    {
+      "name": "updatePrelaunchOracleOnly",
+      "accounts": [
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "prelaunchOracle",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "state",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "perpMarketIndex",
+          "type": "u16"
+        },
+        {
+          "name": "newPrice",
+          "type": "i64"
         }
       ]
     },
@@ -15946,8 +15985,5 @@
       "name": "InvalidIfRebalanceSwap",
       "msg": "Invalid If Rebalance Swap"
     }
-  ],
-  "metadata": {
-    "address": "4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY"
-  }
+  ]
 }

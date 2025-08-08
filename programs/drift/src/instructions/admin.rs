@@ -4490,6 +4490,25 @@ pub fn handle_update_prelaunch_oracle_params(
     Ok(())
 }
 
+pub fn handle_update_prelaunch_oracle_only(
+    ctx: Context<UpdatePrelaunchOracleOnly>,
+    perp_market_index: u16,
+    new_price: i64,
+) -> Result<()> {
+    let mut oracle = ctx.accounts.prelaunch_oracle.load_mut()?;
+    msg!("updating prelaunch oracle price only for market {}", perp_market_index);
+
+    msg!("before: oracle price = {:?}", oracle.price);
+    
+    oracle.price = new_price;
+    
+    msg!("after: oracle price = {:?}", oracle.price);
+    
+    oracle.validate()?;
+
+    Ok(())
+}
+
 pub fn handle_delete_prelaunch_oracle(
     ctx: Context<DeletePrelaunchOracle>,
     _perp_market_index: u16,
@@ -5418,6 +5437,23 @@ pub struct UpdatePrelaunchOracleParams<'info> {
         constraint = perp_market.load()?.market_index == params.perp_market_index
     )]
     pub perp_market: AccountLoader<'info, PerpMarket>,
+    pub state: Box<Account<'info, State>>,
+}
+
+#[derive(Accounts)]
+#[instruction(perp_market_index: u16,)]
+pub struct UpdatePrelaunchOracleOnly<'info> {
+    #[account(
+        mut,
+        constraint = admin.key() == admin_hot_wallet::id() || admin.key() == state.admin
+    )]
+    pub admin: Signer<'info>,
+    #[account(
+        mut,
+        seeds = [b"prelaunch_oracle".as_ref(), perp_market_index.to_le_bytes().as_ref()],
+        bump,
+    )]
+    pub prelaunch_oracle: AccountLoader<'info, PrelaunchOracle>,
     pub state: Box<Account<'info, State>>,
 }
 

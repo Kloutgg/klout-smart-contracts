@@ -3,7 +3,7 @@ const fs = require('fs');
 
 async function main() {
   // Use your configured devnet RPC URL
-  const rpcUrl = 'https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01';
+  const rpcUrl = 'https://devnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97';
   const connection = new Connection(rpcUrl, 'confirmed');
   
   // Load your keypair from the correct path

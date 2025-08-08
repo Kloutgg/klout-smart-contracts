@@ -1,9 +1,9 @@
 [provider]
-cluster = "devnet"
+cluster = "mainnet"
 wallet = "../bilc.json"
 
-[provider.devnet]
-url = "https://devnet.helius-rpc.com/?api-key=35e3349e-26bd-4c88-88f3-a3d99637ae01"
+[provider.mainnet]
+url = "https://mainnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97"
 
 [workspace]
 exclude = ["programs/openbook_v2"]
@@ -17,9 +17,9 @@ watch_ts = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c bas
 watch_build = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c anchor build'
 watch_cargo = 'find ./programs/clearing_house/src/* ./tests ./sdk/src | entr -c cargo test -- --show-output'
 
-[programs.devnet]
-drift = "4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY"
-pyth = "EXWUmJmFfLaGD6ookJfRKNCpuVDqaSEvWTwU2fpn4eyr"
+[programs.mainnet]
+drift = "5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp"
+pyth = "FsJ3A3u2vn5cTVofAjvy6y5kwABJAqYWpe4975bi2epH"
 token_faucet = "5mnk7fV1JRfsr2jqVCb8yrw4mKByEQcJkGXRUXguc1TE"
 
 [[test.validator.account]]

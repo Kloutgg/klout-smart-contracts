@@ -9,7 +9,7 @@ const DEVNET_RPC_URL = 'https://mainnet.helius-rpc.com/?api-key=ca49b73e-00a4-42
 const KEYPAIR_PATH = '../bilc.json';
 
 // Devnet addresses from Anchor.toml
-const DRIFT_PROGRAM_ID = '4r69MyZAKmJ1UR21tndDKpkGXs9Pa9MuhzAVEtF5KZGY';
+const DRIFT_PROGRAM_ID = '5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp';
 
 // USDC mint address - specify your USDC mint here
 const USDC_MINT_ADDRESS = 'HPhjqD2yktd9jvyvUrvkVSarUvs8gWT2CTGct5JzrZ48'; // Replace with your USDC mint address
