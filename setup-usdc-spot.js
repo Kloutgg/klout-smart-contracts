@@ -7,7 +7,7 @@ const fs = require('fs');
 // Configuration for Mainnet
 const MAINNET_RPC_URL = 'https://mainnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97';
 const KEYPAIR_PATH = '../bilc.json';
-const DRIFT_PROGRAM_ID = '5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp';
+const DRIFT_PROGRAM_ID = '7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn';
 const USDC_MINT = 'HPhjqD2yktd9jvyvUrvkVSarUvs8gWT2CTGct5JzrZ48';
 
 function loadKeypair(path) {

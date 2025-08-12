@@ -7153,7 +7153,7 @@
           "isSigner": true
         },
         {
-          "name": "prelaunchOracle",
+          "name": "perpMarket",
           "isMut": true,
           "isSigner": false
         },

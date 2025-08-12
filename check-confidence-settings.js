@@ -10,7 +10,7 @@ const fs = require('fs');
 // Configuration
 const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97";
 const WALLET_PATH = "../bilc.json";
-const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
+const DRIFT_PROGRAM_ID = new PublicKey("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn");
 
 // Markets to check confidence settings
 const MARKETS_TO_CHECK = [

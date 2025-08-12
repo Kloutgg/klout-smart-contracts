@@ -3896,7 +3896,7 @@ export class AdminClient extends DriftClient {
 						? this.getStateAccount().admin
 						: this.wallet.publicKey,
 					state: await this.getStatePublicKey(),
-					prelaunchOracle: await getPrelaunchOraclePublicKey(
+					perpMarket: await getPerpMarketPublicKey(
 						this.program.programId,
 						perpMarketIndex
 					),

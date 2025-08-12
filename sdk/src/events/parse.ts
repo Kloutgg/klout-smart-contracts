@@ -1,6 +1,6 @@
 import { Program, Event } from '@coral-xyz/anchor';
 
-const driftProgramId = '5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp';
+const driftProgramId = '7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn';
 const PROGRAM_LOG = 'Program log: ';
 const PROGRAM_DATA = 'Program data: ';
 const PROGRAM_LOG_START_INDEX = PROGRAM_LOG.length;

@@ -15,7 +15,7 @@ const fs = require('fs');
 // Configuration - OFFICIAL DEVNET VALUES
 const DEVNET_RPC = "https://api.devnet.solana.com";
 const WALLET_PATH = "../bilc.json";
-const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
+const DRIFT_PROGRAM_ID = new PublicKey("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn");
 const DEVNET_USDC_MINT = new PublicKey("8zGuJQqwhZafTah7Uc7Z4tXRnkUfjvmuYqLKLFAP8oV6PHe2"); // OFFICIAL DEVNET USDC
 
 // THE CRITICAL FIX: Equal reserves (SOLVED!)

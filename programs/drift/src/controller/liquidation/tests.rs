@@ -8613,7 +8613,7 @@ mod liquidate_dust_prediction_market {
         let perp_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let perp_market_account_info =
             create_account_info(&key, true, &mut lamports, perp_market_bytes, &owner);
@@ -8626,7 +8626,7 @@ mod liquidate_dust_prediction_market {
         let usdc_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let usdc_market_account_info =
             create_account_info(&key, true, &mut lamports, usdc_market_bytes, &owner);
@@ -8637,7 +8637,7 @@ mod liquidate_dust_prediction_market {
         let sol_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let sol_market_account_info =
             create_account_info(&key, true, &mut lamports, sol_market_bytes, &owner);
@@ -8654,7 +8654,7 @@ mod liquidate_dust_prediction_market {
         let perp_market_oracle_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::from_str("AowFw1dCVjS8kngvTCoT3oshiUyL69k7P1uxqXwteWH4").unwrap();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let perp_market_oracle_account_info =
             create_account_info(&key, true, &mut lamports, perp_market_oracle_bytes, &owner);
@@ -8704,7 +8704,7 @@ mod liquidate_dust_prediction_market {
         let user_bytes = decoded_bytes.as_mut_slice();
 
         let user_key = Pubkey::from_str("5smUuFz1ZzW3FVAF2W1GjYWzxsXQaVyPGdFKfvSnPpaL").unwrap();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let user_account_info =
             create_account_info(&user_key, true, &mut lamports, user_bytes, &owner);
@@ -8774,7 +8774,7 @@ mod liquidate_dust_spot_market {
         let usdc_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let usdc_market_account_info =
             create_account_info(&key, true, &mut lamports, usdc_market_bytes, &owner);
@@ -8785,7 +8785,7 @@ mod liquidate_dust_spot_market {
         let sol_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let sol_market_account_info =
             create_account_info(&key, true, &mut lamports, sol_market_bytes, &owner);
@@ -8796,7 +8796,7 @@ mod liquidate_dust_spot_market {
         let btc_market_bytes = decoded_bytes.as_mut_slice();
 
         let key = Pubkey::default();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let btc_market_account_info =
             create_account_info(&key, true, &mut lamports, btc_market_bytes, &owner);
@@ -8866,7 +8866,7 @@ mod liquidate_dust_spot_market {
         let user_bytes = decoded_bytes.as_mut_slice();
 
         let user_key = Pubkey::from_str("4U5qwCPc3fVfNjFpoLnBjtDNgbcyStpjmGuQiVgPQfdE").unwrap();
-        let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+        let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
         let mut lamports = 0;
         let user_account_info =
             create_account_info(&user_key, true, &mut lamports, user_bytes, &owner);

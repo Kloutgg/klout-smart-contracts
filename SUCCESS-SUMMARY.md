@@ -44,7 +44,7 @@
 - **Error 0x1793** when creating markets with official devnet oracle
 - **Oracle Ownership**: Official oracle not owned by Drift program
   - Oracle owner: `dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH`
-  - Expected: Drift program `5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp`
+  - Expected: Drift program `7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn`
 
 ## 🎯 USER'S OBJECTIVE STATUS
 

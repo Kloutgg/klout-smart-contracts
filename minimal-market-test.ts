@@ -20,7 +20,7 @@ async function main() {
   const adminClient = new AdminClient({
     connection,
     wallet,
-    programID: new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp"),
+    programID: new PublicKey("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn"),
     opts: { commitment: 'confirmed' },
     accountSubscription: {
       type: 'polling',

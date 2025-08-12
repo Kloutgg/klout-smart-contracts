@@ -18,12 +18,12 @@ const fs = require('fs');
 // Configuration - UPDATE THIS SECTION FOR NEW MARKETS
 const DEVNET_RPC = "https://mainnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97";
 const WALLET_PATH = "../bilc.json";
-const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
+const DRIFT_PROGRAM_ID = new PublicKey("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn");
 
 // 🎯 MARKET CONFIGURATION - UPDATED BASED ON MARKET CHECK
 const MARKET_CONFIG = {
-  symbol: 'TRUMP',       // Market symbol for your highly speculative contract
-  name: 'TRUMP Attention Market',    // Market name for display purposes
+  symbol: 'ELON',       // Market symbol for your highly speculative contract
+  name: 'ELON Attention Market',    // Market name for display purposes
   marketIndex: 0,           // ✅ NEXT AVAILABLE INDEX (script shows 26 markets exist, so next is 26)
   startPrice: 1000,          // Starting price in USD (will be set in oracle)
   maxPrice: 100000,        // Maximum price ceiling $10M (will be set in oracle)
@@ -31,8 +31,8 @@ const MARKET_CONFIG = {
 
 // ✨ CRITICAL AMM CONFIGURATION FOR FULL LIQUIDITY
 const AMM_CONFIG = {
-  baseSpread: 1500,           // 25 basis points (0.25%) - ENABLES FULL AMM LIQUIDITY
-  maxSpread: 1600,          // 1425 basis points (14.25%) - Maximum spread cap
+  baseSpread: 1000,           // 25 basis points (0.25%) - ENABLES FULL AMM LIQUIDITY
+  maxSpread: 1100,          // 1425 basis points (14.25%) - Maximum spread cap
   curveUpdateIntensity: 0,  // Full intensity for spread calculations
   marginRatioInitial: 10000,   // 20% initial margin
   marginRatioMaintenance: 3000, // 10% maintenance margin

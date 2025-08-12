@@ -10,7 +10,7 @@ const fs = require('fs');
 // Configuration
 const DEVNET_RPC = "https://api.devnet.solana.com";
 const WALLET_PATH = "../bilc.json";
-const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
+const DRIFT_PROGRAM_ID = new PublicKey("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn");
 
 async function main() {
   console.log("🔍 CHECKING EXISTING MARKETS");

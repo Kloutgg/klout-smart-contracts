@@ -1448,7 +1448,7 @@ fn test_multi_stage_borrow_rate_curve_sol() {
     let sol_market_bytes = decoded_bytes.as_mut_slice();
 
     let key = Pubkey::default();
-    let owner = Pubkey::from_str("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp").unwrap();
+    let owner = Pubkey::from_str("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn").unwrap();
     let mut lamports = 0;
     let sol_market_account_info =
         create_account_info(&key, true, &mut lamports, sol_market_bytes, &owner);

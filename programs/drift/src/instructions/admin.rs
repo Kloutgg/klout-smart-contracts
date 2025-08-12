@@ -4495,17 +4495,38 @@ pub fn handle_update_prelaunch_oracle_only(
     perp_market_index: u16,
     new_price: i64,
 ) -> Result<()> {
-    let mut oracle = ctx.accounts.prelaunch_oracle.load_mut()?;
-    msg!("updating prelaunch oracle price only for market {}", perp_market_index);
-
-    msg!("before: oracle price = {:?}", oracle.price);
+    let mut perp_market = ctx.accounts.perp_market.load_mut()?;
+    let now = Clock::get()?.unix_timestamp;
     
-    oracle.price = new_price;
+    msg!("directly updating oracle TWAP for prelaunch market {}", perp_market_index);
     
-    msg!("after: oracle price = {:?}", oracle.price);
+    // Log before state
+    msg!(
+        "before: oracle_twap = {:?}, oracle_twap_5min = {:?}, oracle_twap_ts = {:?}",
+        perp_market.amm.historical_oracle_data.last_oracle_price_twap,
+        perp_market.amm.historical_oracle_data.last_oracle_price_twap_5min,
+        perp_market.amm.historical_oracle_data.last_oracle_price_twap_ts
+    );
     
-    oracle.validate()?;
-
+    // 🎯 NEW BEHAVIOR: Directly update oracle TWAP used for funding rates
+    perp_market.amm.historical_oracle_data.last_oracle_price_twap = new_price;
+    perp_market.amm.historical_oracle_data.last_oracle_price_twap_5min = new_price;
+    perp_market.amm.historical_oracle_data.last_oracle_price_twap_ts = now;
+    
+    // Also update the direct oracle price for consistency
+    perp_market.amm.historical_oracle_data.last_oracle_price = new_price;
+    
+    // Log after state
+    msg!(
+        "after: oracle_twap = {:?}, oracle_twap_5min = {:?}, oracle_twap_ts = {:?}",
+        perp_market.amm.historical_oracle_data.last_oracle_price_twap,
+        perp_market.amm.historical_oracle_data.last_oracle_price_twap_5min,
+        perp_market.amm.historical_oracle_data.last_oracle_price_twap_ts
+    );
+    
+    // Validate the new price is reasonable
+    validate!(new_price > 0, ErrorCode::InvalidOracle, "new_price <= 0")?;
+    
     Ok(())
 }
 
@@ -5450,10 +5471,9 @@ pub struct UpdatePrelaunchOracleOnly<'info> {
     pub admin: Signer<'info>,
     #[account(
         mut,
-        seeds = [b"prelaunch_oracle".as_ref(), perp_market_index.to_le_bytes().as_ref()],
-        bump,
+        constraint = perp_market.load()?.market_index == perp_market_index
     )]
-    pub prelaunch_oracle: AccountLoader<'info, PrelaunchOracle>,
+    pub perp_market: AccountLoader<'info, PerpMarket>,
     pub state: Box<Account<'info, State>>,
 }
 

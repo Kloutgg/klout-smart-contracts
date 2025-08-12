@@ -82,9 +82,9 @@ export class EventsServerLogProvider implements LogProvider {
 					event.txSig,
 					event.slot,
 					[
-						'Program 5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp invoke [1]',
+						'Program 7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn invoke [1]',
 						event.rawLog,
-						'Program 5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp success',
+						'Program 7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn success',
 					],
 					undefined,
 					event.txSigIndex

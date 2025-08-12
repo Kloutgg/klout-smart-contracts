@@ -18,7 +18,7 @@ const fs = require('fs');
 // const DEVNET_RPC = "https://api.devnet.solana.com";
 const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=ca49b73e-00a4-42d0-8e60-ad1a01e3dc97";
 const WALLET_PATH = "./main-id.json";
-const DRIFT_PROGRAM_ID = new PublicKey("5jFCVBdddzyTjrWSEcY6bKGxq6J6aznuWQeLsxYinAMp");
+const DRIFT_PROGRAM_ID = new PublicKey("7a247Z1uc66BycPHmL7xuGps2Jrym9RQngiWwgqQCtYn");
 // const USDC_MINT = new PublicKey("86wU3KdufXJAiQAipYnx6tZH76np9jw7FYFgVUsxekAC");
 
 // DEF Market Configuration
